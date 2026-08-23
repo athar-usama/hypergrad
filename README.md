@@ -2,8 +2,8 @@
 
 **A from-scratch automatic differentiation engine that computes exact Hessians, not just gradients.**
 
-[![CI](https://github.com/athar-usama/hypergrad/actions/workflows/ci.yml/badge.svg)](https://github.com/athar-usama/hypergrad/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Tests](https://img.shields.io/badge/tests-26%20passing-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 Every well-known "build your own autograd" project, including Karpathy's [micrograd](https://github.com/karpathy/micrograd) and its many clones, implements reverse-mode-only automatic differentiation: it gets you a gradient, and that's it. Ask one of them for a second derivative and the honest answer is "you can't, not without an unstable finite-difference hack."
@@ -85,13 +85,13 @@ A 16-unit single-hidden-layer network, trained for 500 Adam steps on 25 collocat
 
 `Value.data` and `Dual.real`/`Dual.eps` are never assumed to be `float`. Every operator is written in terms of `+ - * / **` and a tiny generic dispatch for `exp`/`log`/`tanh` (`hypergrad/_generic.py`). That's the entire trick.
 
-The `viz.render_graph_svg` helper draws the resulting computation graph directly from the live `Value` nodes and their recorded gradients (not a diagram drawn separately) — here it is for `L = tanh(a*b + c)` after calling `L.backward()`:
+The `viz.render_graph_svg` helper draws the resulting computation graph directly from the live `Value` nodes and their recorded gradients, not a diagram drawn separately. Here it is for `L = tanh(a*b + c)` after calling `L.backward()`:
 
 ![Computation graph for tanh(a*b + c)](assets/computation_graph.svg)
 
-- **`Value(Dual(x, v))`** — every leaf's data is a dual number seeded with a direction `v`. An *ordinary* reverse-mode backward pass now produces dual-valued gradients; the tangent component is `H @ v`. Used by `hessian.py` for Newton's method.
-- **`Dual(Value(x0), Value(1.0))`** — a single input variable's value and derivative-seed are each their own reverse-mode leaf. Running a network on it produces a `Dual` whose `.real`/`.eps` are `Value`s still hooked into the parameter graph, so `.backward()` on an expression built from `.eps` trains the network against a loss that depends on the derivative. Used by the PINN example.
-- **`Dual(Dual(x, 1), Dual(1, 0))`** — nesting `Dual` inside itself, with no code changes, gives exact second derivatives via forward-over-forward mode (see `tests/test_dual_nesting.py` for the finite-difference-checked proof). N-th order forward-mode falls out of the same class, with no extra machinery, by nesting further.
+- **`Value(Dual(x, v))`**: every leaf's data is a dual number seeded with a direction `v`. An *ordinary* reverse-mode backward pass now produces dual-valued gradients; the tangent component is `H @ v`. Used by `hessian.py` for Newton's method.
+- **`Dual(Value(x0), Value(1.0))`**: a single input variable's value and derivative-seed are each their own reverse-mode leaf. Running a network on it produces a `Dual` whose `.real`/`.eps` are `Value`s still hooked into the parameter graph, so `.backward()` on an expression built from `.eps` trains the network against a loss that depends on the derivative. Used by the PINN example.
+- **`Dual(Dual(x, 1), Dual(1, 0))`**: nesting `Dual` inside itself, with no code changes, gives exact second derivatives via forward-over-forward mode (see `tests/test_dual_nesting.py` for the finite-difference-checked proof). N-th order forward-mode falls out of the same class, with no extra machinery, by nesting further.
 
 ## Package layout
 

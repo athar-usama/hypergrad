@@ -110,8 +110,8 @@ def render_graph_svg(root: Value, path: str | Path, *, labels: dict[int, str] | 
     """
     labels = labels or {}
     layers = _topo_layers(root)
-    box_w, box_h = 150, 46
-    x_gap, y_gap = 60, 90
+    box_w, box_h = 190, 46
+    x_gap, y_gap = 50, 90
     width = max(len(layer) for layer in layers) * (box_w + x_gap) + x_gap
     height = len(layers) * (box_h + y_gap) + y_gap
 
@@ -146,15 +146,23 @@ def render_graph_svg(root: Value, path: str | Path, *, labels: dict[int, str] | 
     for x1, y1, x2, y2 in edges:
         svg.append(f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="#888" stroke-width="1.5"/>')
 
+    def fmt_grad(v: Value) -> str:
+        g = v.grad
+        try:
+            return f"{float(g):.4g}"
+        except (TypeError, ValueError):
+            return "n/a"
+
     for layer in layers:
         for node in layer:
             x, y = pos[id(node)]
             label = labels.get(id(node), node._op or "leaf")
             svg.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{box_w}" height="{box_h}" rx="8" '
                        f'fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>')
-            svg.append(f'<text x="{x + box_w/2:.1f}" y="{y + 18:.1f}" text-anchor="middle" fill="#111">{label}</text>')
-            svg.append(f'<text x="{x + box_w/2:.1f}" y="{y + 36:.1f}" text-anchor="middle" fill="#555">'
-                       f'data={fmt(node)} grad={node.grad if isinstance(node.grad, (int, float)) else "…"}</text>')
+            svg.append(f'<text x="{x + box_w/2:.1f}" y="{y + 18:.1f}" text-anchor="middle" fill="#111" '
+                       f'font-size="13">{label}</text>')
+            svg.append(f'<text x="{x + box_w/2:.1f}" y="{y + 36:.1f}" text-anchor="middle" fill="#555" '
+                       f'font-size="11">data={fmt(node)} grad={fmt_grad(node)}</text>')
 
     svg.append("</svg>")
     Path(path).parent.mkdir(parents=True, exist_ok=True)
