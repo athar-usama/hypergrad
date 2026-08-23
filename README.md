@@ -2,7 +2,7 @@
 
 **A from-scratch automatic differentiation engine that computes exact Hessians, not just gradients.**
 
-[![CI](https://github.com/USERNAME/hypergrad/actions/workflows/ci.yml/badge.svg)](https://github.com/USERNAME/hypergrad/actions/workflows/ci.yml)
+[![CI](https://github.com/athar-usama/hypergrad/actions/workflows/ci.yml/badge.svg)](https://github.com/athar-usama/hypergrad/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -28,7 +28,7 @@ Both are demonstrated below with runnable examples and measured output, not just
 ## Install
 
 ```bash
-git clone <this-repo>
+git clone https://github.com/athar-usama/hypergrad.git
 cd hypergrad
 pip install -e ".[dev]"
 ```
