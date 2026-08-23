@@ -83,7 +83,11 @@ A 16-unit single-hidden-layer network, trained for 500 Adam steps on 25 collocat
 
 ## How the composition works
 
-`Value.data` and `Dual.real`/`Dual.eps` are never assumed to be `float`. Every operator is written in terms of `+ - * / **` and a tiny generic dispatch for `exp`/`log`/`tanh` (`hypergrad/_generic.py`). That's the entire trick:
+`Value.data` and `Dual.real`/`Dual.eps` are never assumed to be `float`. Every operator is written in terms of `+ - * / **` and a tiny generic dispatch for `exp`/`log`/`tanh` (`hypergrad/_generic.py`). That's the entire trick.
+
+The `viz.render_graph_svg` helper draws the resulting computation graph directly from the live `Value` nodes and their recorded gradients (not a diagram drawn separately) — here it is for `L = tanh(a*b + c)` after calling `L.backward()`:
+
+![Computation graph for tanh(a*b + c)](assets/computation_graph.svg)
 
 - **`Value(Dual(x, v))`** — every leaf's data is a dual number seeded with a direction `v`. An *ordinary* reverse-mode backward pass now produces dual-valued gradients; the tangent component is `H @ v`. Used by `hessian.py` for Newton's method.
 - **`Dual(Value(x0), Value(1.0))`** — a single input variable's value and derivative-seed are each their own reverse-mode leaf. Running a network on it produces a `Dual` whose `.real`/`.eps` are `Value`s still hooked into the parameter graph, so `.backward()` on an expression built from `.eps` trains the network against a loss that depends on the derivative. Used by the PINN example.
@@ -101,7 +105,7 @@ src/hypergrad/
   viz.py        matplotlib plots + a dependency-free SVG computation-graph renderer
   demos/        the Newton's-method and PINN demos (shared by the CLI and examples/)
   cli.py        `hypergrad demo {newton,pinn}`
-examples/       thin runnable scripts wrapping hypergrad.demos.*
+examples/       thin runnable scripts wrapping hypergrad.demos.*, plus render_graph_demo.py
 tests/          finite-difference-checked correctness tests for every claim above
 ```
 

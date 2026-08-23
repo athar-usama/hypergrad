@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="690" height="634" viewBox="0 0 690 634" font-family="monospace" font-size="13">
+<rect width="690" height="634" fill="white"/>
+<line x1="135.0" y1="544.0" x2="345.0" y2="454.0" stroke="#888" stroke-width="1.5"/>
+<line x1="345.0" y1="544.0" x2="345.0" y2="454.0" stroke="#888" stroke-width="1.5"/>
+<line x1="345.0" y1="408.0" x2="345.0" y2="318.0" stroke="#888" stroke-width="1.5"/>
+<line x1="555.0" y1="544.0" x2="345.0" y2="318.0" stroke="#888" stroke-width="1.5"/>
+<line x1="345.0" y1="272.0" x2="345.0" y2="182.0" stroke="#888" stroke-width="1.5"/>
+<rect x="60.0" y="544.0" width="150" height="46" rx="8" fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="135.0" y="562.0" text-anchor="middle" fill="#111">a</text>
+<text x="135.0" y="580.0" text-anchor="middle" fill="#555">data=2 grad=-0.0040228520490775965</text>
+<rect x="270.0" y="544.0" width="150" height="46" rx="8" fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="345.0" y="562.0" text-anchor="middle" fill="#111">b</text>
+<text x="345.0" y="580.0" text-anchor="middle" fill="#555">data=-3 grad=0.002681901366051731</text>
+<rect x="480.0" y="544.0" width="150" height="46" rx="8" fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="555.0" y="562.0" text-anchor="middle" fill="#111">c</text>
+<text x="555.0" y="580.0" text-anchor="middle" fill="#555">data=10 grad=0.0013409506830258655</text>
+<rect x="270.0" y="408.0" width="150" height="46" rx="8" fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="345.0" y="426.0" text-anchor="middle" fill="#111">a*b</text>
+<text x="345.0" y="444.0" text-anchor="middle" fill="#555">data=-6 grad=0.0013409506830258655</text>
+<rect x="270.0" y="272.0" width="150" height="46" rx="8" fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="345.0" y="290.0" text-anchor="middle" fill="#111">a*b+c</text>
+<text x="345.0" y="308.0" text-anchor="middle" fill="#555">data=4 grad=0.0013409506830258655</text>
+<rect x="270.0" y="136.0" width="150" height="46" rx="8" fill="#eef3ff" stroke="#3355aa" stroke-width="1.5"/>
+<text x="345.0" y="154.0" text-anchor="middle" fill="#111">tanh</text>
+<text x="345.0" y="172.0" text-anchor="middle" fill="#555">data=0.9993 grad=1.0</text>
+</svg>
