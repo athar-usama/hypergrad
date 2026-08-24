@@ -1,4 +1,4 @@
-# hypergrad
+<h1 align="center">hypergrad</h1>
 
 **A from-scratch automatic differentiation engine that computes exact Hessians, not just gradients.**
 
@@ -64,7 +64,9 @@ gradient descent :  20000 iterations -> x=[0.99986, 0.99972]   (hit the iteratio
 Newton's method  :     22 iterations -> x=[1.00000, 1.00000]   (to float64 precision)
 ```
 
-![Newton vs gradient descent](assets/newton_vs_gd.png)
+<p align="center">
+  <img src="assets/newton_vs_gd.png" alt="Newton vs gradient descent">
+</p>
 
 ## Demo 2: a from-scratch Physics-Informed Neural Network
 
@@ -78,8 +80,12 @@ Trains a network `u(t; θ)` to satisfy the damped-harmonic-oscillator ODE `u'' +
 
 A 16-unit single-hidden-layer network, trained for 500 Adam steps on 25 collocation points (about 3 minutes on a single core, pure Python), reaches 1.08e-03 mean squared error against the closed-form solution:
 
-![PINN vs analytical solution](assets/pinn_oscillator.png)
-![PINN training loss](assets/pinn_loss.png)
+<p align="center">
+  <img src="assets/pinn_oscillator.png" alt="PINN vs analytical solution">
+</p>
+<p align="center">
+  <img src="assets/pinn_loss.png" alt="PINN training loss">
+</p>
 
 ## How the composition works
 
@@ -87,7 +93,9 @@ A 16-unit single-hidden-layer network, trained for 500 Adam steps on 25 collocat
 
 The `viz.render_graph_svg` helper draws the resulting computation graph directly from the live `Value` nodes and their recorded gradients, not a diagram drawn separately. Here it is for `L = tanh(a*b + c)` after calling `L.backward()`:
 
-![Computation graph for tanh(a*b + c)](assets/computation_graph.svg)
+<p align="center">
+  <img src="assets/computation_graph.svg" alt="Computation graph for tanh(a*b + c)">
+</p>
 
 - **`Value(Dual(x, v))`**: every leaf's data is a dual number seeded with a direction `v`. An *ordinary* reverse-mode backward pass now produces dual-valued gradients; the tangent component is `H @ v`. Used by `hessian.py` for Newton's method.
 - **`Dual(Value(x0), Value(1.0))`**: a single input variable's value and derivative-seed are each their own reverse-mode leaf. Running a network on it produces a `Dual` whose `.real`/`.eps` are `Value`s still hooked into the parameter graph, so `.backward()` on an expression built from `.eps` trains the network against a loss that depends on the derivative. Used by the PINN example.
