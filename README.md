@@ -1,10 +1,14 @@
 <h1 align="center">hypergrad</h1>
 
-**A from-scratch automatic differentiation engine that computes exact Hessians, not just gradients.**
+<p align="center">
+  <strong>A from-scratch automatic differentiation engine that computes exact Hessians, not just gradients.</strong>
+</p>
 
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Tests](https://img.shields.io/badge/tests-26%20passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-green)
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python">
+  <img src="https://img.shields.io/badge/tests-26%20passing-brightgreen" alt="Tests">
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+</p>
 
 Every well-known "build your own autograd" project, including Karpathy's [micrograd](https://github.com/karpathy/micrograd) and its many clones, implements reverse-mode-only automatic differentiation: it gets you a gradient, and that's it. Ask one of them for a second derivative and the honest answer is "you can't, not without an unstable finite-difference hack."
 
